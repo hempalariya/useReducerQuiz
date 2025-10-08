@@ -1,10 +1,9 @@
 import React from 'react'
 
-export default function Progress() {
+export default function Progress({progressIndex}) {
   return (
     <div className="progress-bar">
-        <progress value={1 / 15}></progress>
-        <p>1/15</p>
+        <progress value={progressIndex}></progress>
       </div>
   )
 }

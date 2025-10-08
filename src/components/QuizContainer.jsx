@@ -3,26 +3,37 @@ import Button from "./Button";
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import { FaLongArrowAltRight } from "react-icons/fa";
 
-export default function QuizContainer() {
+export default function QuizContainer({ question, isAsnswered, dispatch, selectedAnsIndex }) {
+  function handleAnswer(i) {
+    dispatch({
+      type: 'answered',
+      payload: i
+    })
+    
+  }
+
   return (
     <div className="quiz-container">
       <div className="question">
-        <h2>Question Text</h2>
+        <h2>{question.question}</h2>
       </div>
       <div className="options">
-        <Button className={"answer"}>Option 1</Button>
-        <Button className={"answer"}>Option 2</Button>
-        <Button className={"answer"}>Option 3</Button>
-        <Button className={"answer"}>Option 4</Button>
+        {question.options.map((option, i) => {
+          return <Button key={i} disabled = {isAsnswered} className={"answer"} onClick={() => {
+            handleAnswer(i)
+          }}>{option}</Button>;
+        })}
       </div>
 
       <div className="quiz-footer">
-        <Button className={"prev"}>
+        {/* <Button className={"prev"}>
           <FaLongArrowAltLeft />
-        </Button>
-        <Button className={"next"}>
-          <FaLongArrowAltRight />
-        </Button>
+        </Button> */}
+        {isAsnswered && (
+          <Button className={"next"}>
+            <FaLongArrowAltRight />
+          </Button>
+        )}
       </div>
     </div>
   );
