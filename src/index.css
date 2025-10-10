@@ -68,10 +68,25 @@ main{
     
 }
 
+.btn.answered{
+    transform: scale(.95);
+}
+
+.btn.correct{
+    background-color: teal;
+    color: white;
+}
+
+.btn.incorrect{
+    background-color: rgba(255, 0, 0, 0.671);
+    color: white;
+}
+
+
 .btn:hover{
     background-color: teal;
     color: white;
-    transform: scale(1.03);
+
 }
 
 .quiz-footer .btn{
@@ -99,4 +114,13 @@ main{
 
 .quiz-ready .btn{
     margin-top: 15px;
+}
+
+
+.finished{
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
 }

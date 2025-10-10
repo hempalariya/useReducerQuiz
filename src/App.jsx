@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import Main from "./components/Main";
 import Loading from "./components/Loading";
 import QuizStart from "./components/QuizStart";
+import Score from "./components/Score";
 
 const initialState = {
   questions: [],
@@ -11,7 +12,6 @@ const initialState = {
   isAnswered: false,
   selectedAnsIndex: null,
   score: 0,
-  quizEnd: false,
 };
 
 function reducer(state, action) {
@@ -27,12 +27,43 @@ function reducer(state, action) {
         ...state,
         status: "active",
       };
-    case "answered":
+    case "answered": {
+      const question = state.questions.at(state.currentQuestionIndex);
+      console.log(state.score);
+
       return {
         ...state,
         isAnswered: true,
         selectedAnsIndex: action.payload,
+        score:
+          action.payload === question.answerIndex
+            ? state.score + 1
+            : state.score,
       };
+    }
+    case "nextQuestion":
+      return {
+        ...state,
+        currentQuestionIndex: state.currentQuestionIndex++,
+        isAnswered: false,
+        selectedAnsIndex: null,
+      };
+    case "finish":
+      return {
+        ...state,
+        status: "finished",
+      };
+
+    case "restart":
+      return {
+        ...state,
+        status: "ready", // 'loading', 'error', 'ready', 'active', 'finished'
+        currentQuestionIndex: 0,
+        isAnswered: false,
+        selectedAnsIndex: null,
+        score: 0,
+      };
+
     default: {
       return state;
     }
@@ -85,9 +116,10 @@ export default function App() {
           isAnswered={isAnswered}
           score={score}
           dispatch={dispatch}
-          selectedAnsIndex = {selectedAnsIndex}
+          selectedAnsIndex={selectedAnsIndex}
         />
       )}
+      {status === "finished" && <Score score={score} dispatch={dispatch} />}
     </div>
   );
 }
