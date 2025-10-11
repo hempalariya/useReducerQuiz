@@ -11,5 +11,5 @@ export default function Timer({ dispatch, timeLeft }) {
    return () => clearInterval(countDown)
   }, [dispatch]);
 
-  return <div className="timer">{timeLeft}</div>;
+  return <div className="timer">{Math.floor(timeLeft / 60)} : {timeLeft % 60}</div>;
 }

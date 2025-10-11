@@ -3,7 +3,7 @@ import Button from "./Button";
 
 
 
-export default function QuizContainer({ question, isAnswered, dispatch, selectedAnsIndex }) {
+export default function QuizContainer({ question, isAnswered, dispatch, selectedAnsIndex, score }) {
   function handleAnswer(i) {
     dispatch({
       type: 'answered',
@@ -15,6 +15,9 @@ export default function QuizContainer({ question, isAnswered, dispatch, selected
 
   return (
     <div className="quiz-container">
+      <div className="score">
+        <p>Score: {score}</p>
+      </div>
       <div className="question">
         <h2>{question.question}</h2>
       </div>

@@ -12,7 +12,7 @@ const initialState = {
   isAnswered: false,
   selectedAnsIndex: null,
   score: 0,
-  timeLeft: 15
+  timeLeft: null
 };
 
 function reducer(state, action) {
@@ -27,6 +27,7 @@ function reducer(state, action) {
       return {
         ...state,
         status: "active",
+        timeLeft: state.questions.length * 20
       };
     case "answered": {
       const question = state.questions.at(state.currentQuestionIndex);
@@ -57,19 +58,16 @@ function reducer(state, action) {
 
     case "restart":
       return {
-        ...state,
-        status: "ready", // 'loading', 'error', 'ready', 'active', 'finished'
-        currentQuestionIndex: 0,
-        isAnswered: false,
-        selectedAnsIndex: null,
-        score: 0,
+        ...initialState,
+        questions: state.questions,
+        status: "ready"
       };
 
       case "countDown":
         return{
           ...state,
           timeLeft: state.timeLeft - 1,
-          status: state.timeLeft >= 0 ? 'finished' : 'active'
+          status: state.timeLeft === 0 ? 'finished' : state.status
         }
 
     default: {
