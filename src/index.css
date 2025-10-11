@@ -45,7 +45,7 @@ main{
 
 .quiz-footer{
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
     margin-top: 20px;
 }
 
@@ -69,16 +69,11 @@ main{
 }
 
 .btn.answered{
-    transform: scale(.95);
+    transform: scale(.9)
 }
 
 .btn.correct{
     background-color: teal;
-    color: white;
-}
-
-.btn.incorrect{
-    background-color: rgba(255, 0, 0, 0.671);
     color: white;
 }
 

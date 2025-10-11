@@ -3,8 +3,9 @@ import Progress from "./Progress";
 import QuizContainer from "./QuizContainer";
 import Button from "./Button";
 import { FaLongArrowAltRight } from "react-icons/fa";
+import Timer from "./Timer";
 
-export default function Main({questions, currentQuestionIndex, isAnswered, dispatch, selectedAnsIndex}) {
+export default function Main({questions, currentQuestionIndex, isAnswered, dispatch, selectedAnsIndex, timeLeft}) {
 
    function handleNexQuestion(){
   dispatch({
@@ -24,6 +25,7 @@ function handleSubmit(){
       {}
       <QuizContainer question = {questions[currentQuestionIndex]} isAnswered = {isAnswered} dispatch = {dispatch} selectedAnsIndex = {selectedAnsIndex}/>
       <div className="quiz-footer">
+        <Timer timeLeft = {timeLeft} dispatch = {dispatch}/>
         {/* <Button className={"prev"}>
           <FaLongArrowAltLeft />
         </Button> */}

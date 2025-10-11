@@ -12,6 +12,7 @@ const initialState = {
   isAnswered: false,
   selectedAnsIndex: null,
   score: 0,
+  timeLeft: 15
 };
 
 function reducer(state, action) {
@@ -64,6 +65,13 @@ function reducer(state, action) {
         score: 0,
       };
 
+      case "countDown":
+        return{
+          ...state,
+          timeLeft: state.timeLeft - 1,
+          status: state.timeLeft >= 0 ? 'finished' : 'active'
+        }
+
     default: {
       return state;
     }
@@ -79,6 +87,7 @@ export default function App() {
       isAnswered,
       score,
       selectedAnsIndex,
+      timeLeft
     },
     dispatch,
   ] = useReducer(reducer, initialState);
@@ -117,6 +126,7 @@ export default function App() {
           score={score}
           dispatch={dispatch}
           selectedAnsIndex={selectedAnsIndex}
+          timeLeft = {timeLeft}
         />
       )}
       {status === "finished" && <Score score={score} dispatch={dispatch} />}
